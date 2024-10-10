@@ -4,17 +4,8 @@
     <title>u dont get a title</title>
   </head>
   <body>
-	<button onclick="sendbutton_1">Button 1</button>
-	<button onclick="sendbutton_2">Button 2</button>
-	<button onclick="sendbutton_3">Button 3</button>
-
-	<script>
-		function sendButtonClick(buttonId) {
-            fetch(`/button/${buttonId}`)
-                .then(response => response.text())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-	</script>
+	  <a href="but1">button1</a>
+	  <a href="but2">button2</a>
+	  <a href="but3">button3</a>
   </body>
 </html>

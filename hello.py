@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
-@app.route('/button/<int:button_id>', methods=['GET'])
+@app.route('/but<int:button_id>', methods=['GET'])
 def button_clicked(button_id):
 	print(f"Button {button_id} Clicked!")
 	return f"Button {button_id} Clicked!"
