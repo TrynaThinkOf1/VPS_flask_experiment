@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>u dont get a title</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <main>
-        <h1>this is the real secret lab</h1>  
-    </main>
-    <script src="index.js"></script>
+	<button onclick="sendbutton_1">Button 1</button>
+	<button onclick="sendbutton_2">Button 2</button>
+	<button onclick="sendbutton_3">Button 3</button>
+
+	<script>
+		function sendButtonClick(buttonId) {
+            fetch(`/button/${buttonId}`)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+	</script>
   </body>
 </html>
