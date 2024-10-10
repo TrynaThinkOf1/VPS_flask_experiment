@@ -9,8 +9,8 @@ def hello_world():
 
 @app.route('/but<int:button_id>', methods=['GET'])
 def button_clicked(button_id):
-	print(f"Button {button_id} Clicked!")
-	return f"Button {button_id} Clicked!"
+    print(f"Button {button_id} Clicked!")
+    return render_template('index.html')
 
 if __name__ == "__main__":
 	app.run(host="0.0.0.0", port=5000, debug=True) #this is so we dont have to do the specialized initiation command
