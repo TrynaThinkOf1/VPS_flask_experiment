@@ -4,6 +4,7 @@ import time as t
 app = Flask(__name__)
 
 lastButtonPress = 0
+rec_text = ""
 
 @app.route("/")
 def hello_world():
@@ -19,9 +20,18 @@ def button_clicked(button_id):
 # Updated route to handle text input via GET request
 @app.route('/print_text', methods=['GET'])
 def print_text():
+    global rec_text
     text = request.args.get('input')  # Get the 'input' parameter from the URL
+    rec_text = text
     print(f"Received text: {text}")
     return render_template('index.html')
+
+@app.route('/text')
+def received_text():
+	global rec_text
+	temp = rec_text
+	rec_text = ""
+	return temp
 
 @app.route("/lastbut")
 def lastbut():
