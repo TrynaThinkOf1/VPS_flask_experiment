@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request
 import time as t
 
 app = Flask(__name__)
@@ -13,7 +13,14 @@ def hello_world():
 def button_clicked(button_id):
     global lastButtonPress
     print(f"Button {button_id} Clicked!")
-    lastButtonPress = button_id # update the info of what button was pressed last
+    lastButtonPress = button_id
+    return render_template('index.html')
+
+# Updated route to handle text input via GET request
+@app.route('/print_text', methods=['GET'])
+def print_text():
+    text = request.args.get('input')  # Get the 'input' parameter from the URL
+    print(f"Received text: {text}")
     return render_template('index.html')
 
 @app.route("/lastbut")

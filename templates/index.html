@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<style> * {font:40px bold;color:White;background:Black;padding: 20px;border-radius: 10px;text-decoration: none;line-height:3.5;} </style>
 <html lang="en">
 <head>
     <title>u dont get a title</title>
-  </head>
-  <body>
-	  <a href="but1" style=background-color:DodgerBlue>button1</a>
-	  <a href="but2" style=background-color:DodgerBlue>button2</a>
-	  <a href="but3" style=background-color:DodgerBlue>button3</a>
-  </body>
+    <style>
+        * {font:40px bold; color:White; background:Black; padding: 20px; border-radius: 10px;}
+        a {background-color:DodgerBlue; text-decoration: none; padding: 10px; margin-right: 10px;}
+    </style>
+</head>
+<body>
+    <a href="/but1" style="background-color:DodgerBlue;">button1</a>
+    <a href="/but2" style="background-color:DodgerBlue;">button2</a>
+    <a href="/but3" style="background-color:DodgerBlue;">button3</a>
+
+    <!-- Updated form: use GET and create the appropriate URL dynamically -->
+    <form action="/print_text" method="get">
+        <input type="text" id="input" name="input"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
 </html>
