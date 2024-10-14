@@ -1,21 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>u dont get a title</title>
-    <style>
-        * {font:40px bold; color:White; background:Black; padding: 20px; border-radius: 10px;}
-        a {background-color:DodgerBlue; text-decoration: none; padding: 10px; margin-right: 10px;}
-    </style>
+    <title>FlHax 5000</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-    <a href="/but1" style="background-color:DodgerBlue;">button1</a>
-    <a href="/but2" style="background-color:DodgerBlue;">button2</a>
-    <a href="/but3" style="background-color:DodgerBlue;">button3</a>
+    <div class="container">
+        <form action="/text" method="get" id="command-form">
+            <label for="command">Enter Command:</label><br>
+            <input type="text" id="command" name="command" class="input-text"><br><br>
 
-    <!-- Updated form: use GET and create the appropriate URL dynamically -->
-    <form action="/print_text" method="get">
-        <input type="text" id="input" name="input"><br><br>
-        <input type="submit" value="Submit">
-    </form>
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+
+        <!-- Input box for setting auto-refresh rate -->
+        <label for="refresh-rate">Set Auto-refresh Rate:</label><br>
+        <input type="text" id="refresh-rate" placeholder="1.0" class="autoRefreshInput" oninput="setAutoRefresh()">
+        <br><br>
+
+        <!-- Output display in an iframe with individual background and borders -->
+        <iframe height="500" width="1080" src="/see_output" title="see the output" class="iframe-output"></iframe>
+        
+        <a name="clear" href="/clear_output" class="clear-btn">Clear Output</a>
+
+	<iframe height="1080" width="1920" src="/image_output" title="see screenshots" class="iframe-images"></iframe>
+
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchText()">
+        <textarea id="multi-line-text" rows="20" cols="40" readonly>
+end_script
+fork_bomb (confirm.)
+geolocate_ip=<ip-address>
+get_wifi=<wifi name>
+list_users
+poll_rate=<rate>
+show_wifis
+whatismyip
+whoami
+        </textarea>
+    </div>
+
+    <script>
+        const defaultText = `end_script\nfork_bomb (confirm.)\ngeolocate_ip=<ip-address>\nget_wifi=<wifi name>\nlist_users\npoll_rate=<rate>\nshow_wifis\nwhatismyip\nwhoami`;
+        let refreshInterval;
+        let refreshRate = 1.0; // Default refresh rate
+        const iframe = document.querySelector('.iframe-output');
+
+        function searchText() {
+            let input = document.getElementById("search-bar").value.toLowerCase();
+            let textArea = document.getElementById("multi-line-text");
+            if (input === "") {
+                textArea.value = defaultText; // Restore default list if search is cleared
+            } else {
+                let textLines = defaultText.split('\n');
+                let filteredLines = textLines.filter(line => line.toLowerCase().includes(input));
+                textArea.value = filteredLines.join('\n');
+            }
+        }
+
+        function setAutoRefresh() {
+            refreshRate = parseFloat(document.getElementById("refresh-rate").value);
+            localStorage.setItem('refreshRate', refreshRate); // Save refresh rate to local storage
+            clearInterval(refreshInterval);
+            if (refreshRate > 0) {
+                startAutoRefresh();
+            } else {
+                clearInterval(refreshInterval); // Stop refreshing when set to 0
+            }
+        }
+
+        function startAutoRefresh() {
+            refreshInterval = setInterval(() => {
+                iframe.src = iframe.src; // Refresh the iframe by resetting its source
+            }, 1000 / refreshRate); // Refresh based on the input value
+        }
+
+        document.getElementById("command-form").addEventListener("submit", function() {
+            startAutoRefresh(); // Restart refreshing when the form is submitted
+        });
+
+        // Load refresh rate from local storage on page load
+        window.onload = function() {
+            const storedRate = localStorage.getItem('refreshRate');
+            if (storedRate) {
+                document.getElementById("refresh-rate").value = storedRate; // Set the input value from local storage
+                refreshRate = parseFloat(storedRate); // Update the refresh rate variable
+                startAutoRefresh(); // Start auto-refresh with the stored rate
+            } else {
+                startAutoRefresh(); // Default auto-refresh if no stored rate
+            }
+        };
+    </script>
 </body>
 </html>
